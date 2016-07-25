@@ -7,4 +7,4 @@ WORKDIR /go/src/github.com/ernestio/instance-builder
 
 RUN make deps && go install
 
-ENTRYPOINT /go/bin/instance-builder
+ENTRYPOINT ./entrypoint.sh
