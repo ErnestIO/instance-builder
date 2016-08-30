@@ -4,26 +4,29 @@
 
 package main
 
-import "runtime"
+import (
+	"os"
+	"runtime"
+
+	l "github.com/ernestio/builder-library"
+)
+
+var s l.Scheduler
 
 func main() {
-	n := natsClient()
-	r := redisClient()
+	s.Setup(os.Getenv("NATS_URI"))
 
-	// Process requests
-	processRequest(n, r, "instances.delete", "instance.delete")
-	processRequest(n, r, "instances.create", "instance.create")
-	processRequest(n, r, "instances.update", "instance.update")
+	s.ProcessRequest("instances.create", "instance.create")
+	s.ProcessRequest("instances.delete", "instance.delete")
+	s.ProcessRequest("instances.update", "instance.update")
 
-	// Process resulting success
-	processResponse(n, r, "instance.create.done", "instances.create.", "instance.create", "completed")
-	processResponse(n, r, "instance.delete.done", "instances.delete.", "instance.delete", "completed")
-	processResponse(n, r, "instance.update.done", "instances.update.", "instance.update", "completed")
+	s.ProcessSuccessResponse("instance.create.done", "instance.create", "instances.create.done")
+	s.ProcessSuccessResponse("instance.delete.done", "instance.delete", "instances.delete.done")
+	s.ProcessSuccessResponse("instance.update.done", "instance.update", "instances.update.done")
 
-	// Process resulting errors
-	processResponse(n, r, "instance.delete.error", "instances.delete.", "instance.delete", "errored")
-	processResponse(n, r, "instance.create.error", "instances.create.", "instance.create", "errored")
-	processResponse(n, r, "instance.update.error", "instances.update.", "instance.update", "errored")
+	s.ProcessFailedResponse("instance.create.error", "instances.create.error")
+	s.ProcessFailedResponse("instance.delete.error", "instances.delete.error")
+	s.ProcessFailedResponse("instance.update.error", "instances.update.error")
 
 	runtime.Goexit()
 }
