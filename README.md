@@ -6,8 +6,8 @@ Once all of them are fully processed it will emit back a message 'instances.crea
 
 ## Build status
 
-* master: [![CircleCI](https://circleci.com/gh/ErnestIO/instance-builder/tree/master.svg?style=svg)](https://circleci.com/gh/ErnestIO/instance-builder/tree/master)
-* develop: [![CircleCI](https://circleci.com/gh/ErnestIO/instance-builder/tree/develop.svg?style=svg)](https://circleci.com/gh/ErnestIO/instance-builder/tree/develop)
+* master: [![CircleCI](https://circleci.com/gh/ernestio/instance-builder/tree/master.svg?style=svg)](https://circleci.com/gh/ernestio/instance-builder/tree/master)
+* develop: [![CircleCI](https://circleci.com/gh/ernestio/instance-builder/tree/develop.svg?style=svg)](https://circleci.com/gh/ernestio/instance-builder/tree/develop)
 
 ## Installation
 
